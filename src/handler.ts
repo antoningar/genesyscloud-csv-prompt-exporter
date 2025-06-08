@@ -1,11 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { ExampleService } from '../business/example-service';
-
-interface GenesysOAuthConfig {
-  gc_client_id: string;
-  gc_client_secret: string;
-  gc_aws_region: string;
-}
+import { PromptService } from '../business/prompt-service';
 
 function validateOAuthCredentials(context: any): boolean {
   if (!context?.clientContext) {
@@ -29,7 +23,7 @@ export const handler = async (
 
     if (!validateOAuthCredentials(context)) {
       return {
-        statusCode: 401,
+        statusCode: 400,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -40,8 +34,8 @@ export const handler = async (
       };
     }
 
-    const exampleService = new ExampleService();
-    const result = await exampleService.process(event.body);
+    const promptService = new PromptService();
+    const result = await promptService.process(context.clientContext);
     
     return {
       statusCode: 200,
