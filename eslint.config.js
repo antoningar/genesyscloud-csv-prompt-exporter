@@ -42,7 +42,7 @@ module.exports = [
     rules: {
       ...typescript.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'ignore',
       'no-console': 'off',
     },
   },

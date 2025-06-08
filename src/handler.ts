@@ -1,13 +1,44 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ExampleService } from '../business/example-service';
 
+interface GenesysOAuthConfig {
+  gc_client_id: string;
+  gc_client_secret: string;
+  gc_aws_region: string;
+}
+
+function validateOAuthCredentials(context: any): boolean {
+  if (!context?.clientContext) {
+    return false;
+  }
+
+  const { gc_client_id, gc_client_secret, gc_aws_region } = context.clientContext;
+
+  return !!(gc_client_id && gc_client_id.trim() !== '' &&
+           gc_client_secret && gc_client_secret.trim() !== '' &&
+           gc_aws_region && gc_aws_region.trim() !== '');
+}
+
 export const handler = async (
-  event: APIGatewayProxyEvent,
-  context: Context
+  event: any,
+  context: any
 ): Promise<APIGatewayProxyResult> => {
   try {
     console.log('Event:', JSON.stringify(event, null, 2));
     console.log('Context:', JSON.stringify(context, null, 2));
+
+    if (!validateOAuthCredentials(context)) {
+      return {
+        statusCode: 401,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: 'Unauthorized: Invalid or missing OAuth credentials',
+          error: 'Missing required OAuth parameters: gc_client_id, gc_client_secret, gc_aws_region',
+        }),
+      };
+    }
 
     const exampleService = new ExampleService();
     const result = await exampleService.process(event.body);
@@ -56,19 +87,12 @@ if (require.main === module) {
     resource: '/test'
   };
 
-  const fakeContext: Context = {
-    callbackWaitsForEmptyEventLoop: false,
-    functionName: 'test-function',
-    functionVersion: '1',
-    invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:test-function',
-    memoryLimitInMB: '128',
-    awsRequestId: 'test-request-id',
-    logGroupName: '/aws/lambda/test-function',
-    logStreamName: '2023/01/01/[$LATEST]test-stream',
-    getRemainingTimeInMillis: () => 30000,
-    done: () => {},
-    fail: () => {},
-    succeed: () => {}
+  const fakeContext: any = {
+    clientContext: {
+      gc_client_id: 'test-client-id',
+      gc_client_secret: 'test-client-secret',
+      gc_aws_region: 'us-east-1'
+    }
   };
 
   handler(fakeEvent, fakeContext)
