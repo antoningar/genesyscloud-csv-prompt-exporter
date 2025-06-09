@@ -12,7 +12,6 @@ export class GenesysService {
   async init(oauthConfig: GenesysOAuthConfig) {
     this.client.setEnvironment(PureCloudRegionHosts[oauthConfig.gc_aws_region]);
     await this.client.loginClientCredentialsGrant(oauthConfig.gc_client_id, oauthConfig.gc_client_secret);
-    // this.api = new ArchitectApi();
   }
 
   async process(): Promise<any> {
