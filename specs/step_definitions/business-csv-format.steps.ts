@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@cucumber/cucumber';
-import { PromptService } from '../../business/prompt-service';
+import { PromptService } from '../../src/business/prompt-service';
 import { strict as assert } from 'assert';
 
 let mockGenesysService: any;
@@ -14,14 +14,14 @@ Given('Some existing prompts', function () {
         name: 'Welcome Prompt',
         description: 'Welcome message for customers',
         resources: [
-          { tts: 'Welcome to our service', duration: 5 }
+          { tts: 'Welcome to our service', duration: 0 }
         ]
       },
       {
         name: 'Hold Music',
         description: 'Music played while on hold',
         resources: [
-          { tts: 'Please hold while we connect you', duration: 10 }
+          { tts: '', duration: 10 }
         ]
       }
     ])

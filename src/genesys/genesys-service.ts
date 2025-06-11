@@ -33,10 +33,10 @@ export class GenesysService {
       if (response.entities) {
         const convertedPrompts = response.entities.map(prompt => ({
           name: prompt.name || '',
-          description: prompt.description || '',
+          description: prompt.description ?? '',
           resources: prompt.resources?.map(resource => ({
-            tts: resource.ttsString || '',
-            duration: resource.durationSeconds || 0
+            tts: resource.ttsString ?? '',
+            duration: resource.durationSeconds ?? 0
           })) || []
         }));
         

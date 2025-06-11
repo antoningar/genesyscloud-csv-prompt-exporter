@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { PromptService } from '../business/prompt-service';
+import { PromptService } from './business/prompt-service';
 
 function validateOAuthCredentials(context: any): boolean {
   if (!context?.clientContext) {

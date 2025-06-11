@@ -1,5 +1,5 @@
 import { GenesysService } from '../genesys/genesys-service'
-import { GenesysOAuthConfig } from '../business/models';
+import { GenesysOAuthConfig } from './models';
 
 export class PromptService {
   private readonly genesysService: any;
@@ -28,13 +28,13 @@ export class PromptService {
 
     const headers = 'name,description,tts,duration\n';
     const rows = prompts.map(prompt => {
-      const resources = prompt.resources || [];
+      const resources = prompt.resources ?? [];
       if (resources.length === 0) {
-        return `"${prompt.name || ''}","${prompt.description || ''}","",""`;
+        return `"${prompt.name ?? ''}","${prompt.description ?? ''}","",""`;
       }
       
       return resources.map((resource: any) => 
-        `"${prompt.name || ''}","${prompt.description || ''}","${resource.tts || ''}","${resource.duration || 0}"`
+        `"${prompt.name ?? ''}","${prompt.description ?? ''}","${resource.tts ?? ''}","${resource.duration ?? 0}"`
       ).join('\n');
     }).join('\n');
 
