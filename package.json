@@ -10,7 +10,8 @@
     "build": "tsc",
     "test": "cucumber-js",
     "lint": "eslint src/**/*.ts",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "zipnodev": "npm install --omit=dev && zip -r function-csv-prompts-exporter.zip dist/ node_modules/ && npm install"
   },
   "dependencies": {
     "purecloud-platform-client-v2": "*"
@@ -23,8 +24,7 @@
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "eslint": "*",
-    "ts-node": "*",
-    "purecloud-platform-client-v2": "223.0.0"
+    "ts-node": "*"
   },
   "keywords": [
     "lambda",
