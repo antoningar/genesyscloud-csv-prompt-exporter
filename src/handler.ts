@@ -42,11 +42,7 @@ export const handler = async (
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        message: 'Function executed successfully',
-        result: result,
-        timestamp: new Date().toISOString(),
-      }),
+      body: result,
     };
   } catch (error) {
     console.error('Error:', error);
@@ -83,9 +79,9 @@ if (require.main === module) {
 
   const fakeContext: any = {
     clientContext: {
-      gc_client_id: 'test-client-id',
-      gc_client_secret: 'test-client-secret',
-      gc_aws_region: 'us-east-1'
+      gc_client_id: 'f2364d1d-cfa0-4445-b237-8e0f48904178',
+      gc_client_secret: '-cPKFl5zoUI_4OGCm63LLNvegUooQr7cYFZ0x7eLdqI',
+      gc_aws_region: 'eu_west_1'
     }
   };
 

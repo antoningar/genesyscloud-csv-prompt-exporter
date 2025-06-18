@@ -14,11 +14,7 @@ export class PromptService {
     const prompts = await this.genesysService.process();
     const csvData = this.convertToCsv(prompts);
 
-    return {
-      processed: true,
-      data: csvData,
-      timestamp: new Date().toISOString()
-    };
+    return csvData;
   }
 
   private convertToCsv(prompts: any[]): string {
@@ -30,11 +26,11 @@ export class PromptService {
     const rows = prompts.map(prompt => {
       const resources = prompt.resources ?? [];
       if (resources.length === 0) {
-        return `"${prompt.name ?? ''}","${prompt.description ?? ''}","",""`;
+        return `${prompt.name},${prompt.description},,`;
       }
       
       return resources.map((resource: any) => 
-        `"${prompt.name ?? ''}","${prompt.description ?? ''}","${resource.tts ?? ''}","${resource.duration ?? 0}"`
+        `${prompt.name},${prompt.description},${resource.tts},${resource.duration ?? 0}`
       ).join('\n');
     }).join('\n');
 
