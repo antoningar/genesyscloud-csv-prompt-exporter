@@ -42,10 +42,9 @@ When('Processing the prompt service', async function () {
 
 Then('Prompts should be returns as a csv string', function () {
   assert(result, 'Result should exist');
-  assert(result.processed === true, 'Result should be processed');
-  assert(typeof result.data === 'string', 'Result data should be a CSV string');
+  assert(typeof result === 'string', 'Result data should be a CSV string');
   
-  const csvData = result.data;
+  const csvData = result;
   assert(csvData.includes('name,description,tts,duration'), 'CSV should have correct headers');
   assert(csvData.includes('Welcome Prompt'), 'CSV should contain first prompt name');
   assert(csvData.includes('Hold Music'), 'CSV should contain second prompt name');

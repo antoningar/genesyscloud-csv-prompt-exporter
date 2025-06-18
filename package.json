@@ -11,7 +11,7 @@
     "test": "cucumber-js",
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist",
-    "zipnodev": "npm install --omit=dev && zip -r function-csv-prompts-exporter.zip dist/ node_modules/ && npm install"
+    "zipnodev": "npm install --omit=dev && zip -r function-csv-prompts-exporter.zip dist/ node_modules/"
   },
   "dependencies": {
     "purecloud-platform-client-v2": "*"
@@ -20,11 +20,11 @@
     "@cucumber/cucumber": "*",
     "@types/aws-lambda": "*",
     "@types/node": "^22",
-    "typescript": "^5",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "eslint": "*",
-    "ts-node": "*"
+    "ts-node": "*",
+    "typescript": "^5"
   },
   "keywords": [
     "lambda",

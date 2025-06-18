@@ -42,11 +42,7 @@ export const handler = async (
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        message: 'Function executed successfully',
-        result: result,
-        timestamp: new Date().toISOString(),
-      }),
+      body: result,
     };
   } catch (error) {
     console.error('Error:', error);
