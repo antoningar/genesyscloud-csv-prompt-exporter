@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { PromptService } from './business/prompt-service';
 
 function validateOAuthCredentials(context: any): boolean {
@@ -16,7 +16,7 @@ function validateOAuthCredentials(context: any): boolean {
 export const handler = async (
   event: any,
   context: any
-): Promise<APIGatewayProxyResult> => {
+) => {
   try {
     console.log('Event:', JSON.stringify(event, null, 2));
     console.log('Context:', JSON.stringify(context, null, 2));
@@ -38,20 +38,12 @@ export const handler = async (
     const result = await promptService.process(context.clientContext);
     
     return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: result,
     };
   } catch (error) {
     console.error('Error:', error);
     
     return {
-      statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         message: 'Internal server error',
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -63,7 +55,7 @@ export const handler = async (
 // CLI runner
 if (require.main === module) {
   const fakeEvent: APIGatewayProxyEvent = {
-    body: process.argv[2] || '{"test": "data"}',
+    body: process.argv[2] ?? '{"test": "data"}',
     headers: {},
     multiValueHeaders: {},
     httpMethod: 'POST',
