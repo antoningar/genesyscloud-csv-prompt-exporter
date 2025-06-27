@@ -48,12 +48,20 @@ export const handler = async (
     const result = await promptService.process(context.clientContext);
     
     return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: result,
     };
   } catch (error) {
     console.error('Error:', error);
     
     return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         message: 'Internal server error',
         error: error instanceof Error ? error.message : 'Unknown error',
