@@ -1,7 +1,7 @@
 {
-  "name": "lambda-function-template",
+  "name": "genesyscloud-csv-prompt-exporter",
   "version": "1.0.0",
-  "description": "Lambda function template with hexagonal architecture",
+  "description": "Lambda function extracting all user prompt and parse them to CSV",
   "main": "handler.js",
   "engines": {
     "node": "22"
@@ -33,6 +33,6 @@
     "hexagonal-architecture",
     "purecloud"
   ],
-  "author": "",
+  "author": "agar",
   "license": "ISC"
 }
