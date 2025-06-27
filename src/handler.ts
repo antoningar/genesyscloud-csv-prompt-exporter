@@ -1,7 +1,17 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { PromptService } from './business/prompt-service';
 
-function validateOAuthCredentials(context: any): boolean {
+interface Context {
+  clientContext: ClientContext
+};
+
+interface ClientContext {
+  gc_client_id: string
+  gc_client_secret: string
+  gc_aws_region: string
+};
+
+function validateOAuthCredentials(context: Context): boolean {
   if (!context?.clientContext) {
     return false;
   }
@@ -14,8 +24,8 @@ function validateOAuthCredentials(context: any): boolean {
 }
 
 export const handler = async (
-  event: any,
-  context: any
+  event: APIGatewayProxyEvent,
+  context: Context
 ) => {
   try {
     console.log('Event:', JSON.stringify(event, null, 2));
