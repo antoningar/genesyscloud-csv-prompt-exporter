@@ -1,5 +1,5 @@
 import { GenesysService } from '../genesys/genesys-service'
-import { GenesysOAuthConfig, Prompt } from './models';
+import { GenesysOAuthConfig, Prompt, PromptResources } from './models';
 
 export class PromptService {
   private readonly genesysService: GenesysService;
@@ -8,7 +8,7 @@ export class PromptService {
     this.genesysService = genesysService ?? new GenesysService();
   }
 
-  async process(config: GenesysOAuthConfig): Promise<any> {
+  async process(config: GenesysOAuthConfig): Promise<string> {
     await this.genesysService.init(config);
 
     const prompts = await this.genesysService.getPrompts();
@@ -20,7 +20,7 @@ export class PromptService {
   private getLanguagesList(prompts: Prompt[]): string[] {
     const allLanguages = new Set<string>();
     prompts.forEach(prompt => {
-      prompt.resources?.forEach((resource: any) => {
+      prompt.resources?.forEach((resource: PromptResources) => {
         if (resource.language) {
           allLanguages.add(resource.language);
         }
@@ -32,8 +32,8 @@ export class PromptService {
 
   private getRows(prompts: Prompt[], languagesList: string[]): string {
     return prompts.map(prompt => {
-      const resourcesByLanguage = new Map<string, any>();
-      prompt.resources?.forEach((resource: any) => {
+      const resourcesByLanguage = new Map<string, PromptResources>();
+      prompt.resources?.forEach((resource: PromptResources) => {
         if (resource.language) {
           resourcesByLanguage.set(resource.language, resource);
         }
