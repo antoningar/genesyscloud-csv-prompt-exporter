@@ -1,0 +1,11 @@
+Comment exporter ses prompts Genesys Cloud ?
+
+L'API Genesys rend possible l'export, mais le format JSON est difficile à exploiter.
+J’ai d'abord développé un script pour faire l'appel et convertir en CSV.
+
+Ensuite, les Genesys Functions sont arrivées !
+
+Elles me permettent d'héberger et d'exécuter ce script, sans aucune dépendance externe.
+Maintenant, l'export des prompts en CSV est accessible sur demande à tout administrateur.
+
+Le code est disponible sur mon GitHub :

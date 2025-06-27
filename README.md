@@ -1,6 +1,6 @@
-# Lambda Function Template
+# Genesys Cloud CSV prompt exporter
 
-A TypeScript template for AWS Lambda functions with business logic separation and Cucumber testing.
+Genesys Cloud function action to export all current prompts, in a CSV format.
 
 ## Setup Instructions
 
@@ -8,15 +8,27 @@ A TypeScript template for AWS Lambda functions with business logic separation an
 - Node.js 22 or higher
 - npm
 
-### Installation
-
-1. **Install dependencies:**
+### Packaging
+1. **build:**
    ```bash
-   npm install
+   npm run build
    ```
+2. **zip:**
+   ```bash
+   npm run zipnodev
+   ```
+3. **Upload:**
+   upload `function-csv-prompts-exporter.zip` into your function data action.
+
+
+### Genesys Configuration
+1. **Headers:**
+   pass to the function headers `gc_client_id`, `gc_client_secret` and `gc_aws_region`.
+   pass value thanks to the integration
+2. **Handler:**
+   set handler to `dist/src/handler.handler`
 
 ### Project Structure
-
 ```
 ├── src/
 │   └── handler.ts          # Main Lambda handler
@@ -49,13 +61,6 @@ npx ts-node src/handler.ts
 npx ts-node src/handler.ts '{"name": "test", "value": 123}'
 ```
 
-### Usage
-
-1. Implement your business logic in the `business/` folder
-2. Update the handler in `src/handler.ts` to use your business services
-3. Write Gherkin specifications in the `specs/` folder
-4. Build and test before deployment
-
 ### CI/CD
 
 This template includes a GitHub Actions CI workflow that automatically runs on pull requests to the main branch. The CI pipeline:
@@ -68,9 +73,3 @@ This template includes a GitHub Actions CI workflow that automatically runs on p
 - **purecloud-platform-client-v2:** PureCloud SDK
 - **@cucumber/cucumber:** BDD testing framework
 - **TypeScript:** Type-safe JavaScript development
-
-### Next Steps
-
-- [ ] Write comprehensive Gherkin tests in specs/
-- [ ] Create your business services in the business/ folder
-- [ ] Update handler.ts with your specific business logic
