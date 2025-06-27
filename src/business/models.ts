@@ -13,4 +13,5 @@ export interface Prompt {
 export interface PromptResources {
   tts: string;
   duration: number;
+  language: string;
 }
