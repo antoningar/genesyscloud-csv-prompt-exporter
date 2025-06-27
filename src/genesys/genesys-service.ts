@@ -14,10 +14,6 @@ export class GenesysService {
     await this.client.loginClientCredentialsGrant(oauthConfig.gc_client_id, oauthConfig.gc_client_secret);
   }
 
-  async process(): Promise<any> {
-    return await this.getPrompts();
-  }
-
   async getPrompts(): Promise<Prompt[]> {
     const allPrompts: Prompt[] = [];
     let pageNumber = 1;
@@ -36,7 +32,8 @@ export class GenesysService {
           description: prompt.description ?? '',
           resources: prompt.resources?.map(resource => ({
             tts: resource.ttsString ?? '',
-            duration: resource.durationSeconds ?? 0
+            duration: resource.durationSeconds ?? 0,
+            language: resource.language ?? ''
           })) || []
         }));
         
