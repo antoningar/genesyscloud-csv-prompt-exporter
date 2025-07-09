@@ -41,10 +41,10 @@ export class PromptService {
 
       const row = [
         `"${prompt.name}"`,
-        `"${prompt.description}"`,
+        `"${prompt.description.replaceAll("\"", "'")}"`,
         ...languagesList.map(lang => {
           const resource = resourcesByLanguage.get(lang);
-          return `"${resource ? resource.tts : ''}"`;
+          return `"${resource ? resource.tts.replaceAll("\"", "'").replaceAll("\\n", " ").replaceAll("\n", " ") : ''}"`;
         })
       ];
 
