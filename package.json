@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "cucumber-js",
+    "test": "jest && cucumber-js",
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist",
     "zipnodev": "npm run clean && npm install --omit=dev && npm run build && zip -r function-csv-prompts-exporter.zip dist/ node_modules/"
@@ -24,7 +24,10 @@
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "eslint": "*",
-    "typescript": "^5"
+    "typescript": "^5",
+    "jest": "*",
+    "@types/jest": "*",
+    "ts-jest": "*"
   },
   "keywords": [
     "lambda",
