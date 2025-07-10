@@ -44,7 +44,7 @@ export class GenesysService {
       pageNumber++;
     }
 
-    return allPrompts;
+    return allPrompts.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   setLogger() {
